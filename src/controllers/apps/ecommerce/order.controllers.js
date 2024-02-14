@@ -249,7 +249,9 @@ const verifyRazorpayPayment = asyncHandler(async (req, res) => {
     const order = await orderFulfillmentHelper(razorpay_order_id, req);
     return res
       .status(201)
-      .redirect(`/paymentSuccess?reference=${razorpay_payment_id}`)
+      .redirect(
+        `${process.env.REACT_APP_FRONTEND_BASE_URL}/paymentSuccess?reference=${razorpay_payment_id}`
+      )
       .json(new ApiResponse(201, order, "Order placed successfully"));
   } else {
     throw new ApiError(400, "Invalid razorpay signature");
